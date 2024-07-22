@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>7 Günlük Veriler</title>
+</head>
+<body>
+    <h1>7 Günlük Veriler</h1>
+    <div id="data"></div>
+
+    <script>
+        // API uç noktasını kullanarak veri alın
+        fetch('https://localhost:7178/api/data/7-gunluk-veriler')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log(data); // API'den gelen veriyi konsolda incelemek için ekleyin
+                document.getElementById('data').innerHTML = `
+                    <p>Tarih: ${new Date(data.date).toLocaleString('tr-TR')}</p>
+                    <p>Değer 1: ${data.value1}</p>
+                    <p>Değer 2: ${data.value2}</p>
+                    <p>Değer 3: ${data.value3}</p>
+                `;
+            })
+            .catch(error => console.error('Hata:', error));
+    </script>
+</body>
+</html>
