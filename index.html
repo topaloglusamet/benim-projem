@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>7 Günlük Veriler</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            max-width: 600px;
+            margin: auto;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        p {
+            margin: 5px 0;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>7 Günlük Veriler</h1>
+        <div id="data">Veriler yükleniyor...</div>
+
+    </div>
+    <script>
+        // API URL'sini buraya ekleyin
+        const apiUrl = 'https://localhost:7178/api/data/7-gunluk-veriler';
+
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('data').innerHTML = `
+                    <p>Tarih: ${new Date(data.date).toLocaleString()}</p>
+                    <p>Değer 1: ${data.value1}</p>
+                    <p>Değer 2: ${data.value2}</p>
+                    <p>Değer 3: ${data.value3}</p>
+                `;
+            })
+            .catch(error => {
+                document.getElementById('data').innerHTML = `<p>Veriler alınamadı: ${error}</p>`;
+            });
+    </script>
+</body>
+</html>
